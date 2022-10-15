@@ -401,3 +401,126 @@ Aliases:
 
 **using Type = Another Type**
 
+##### typename
+
+- used to specify that the following identifier is a type
+ - otherwise would be static member
+
+e.g.
+```c++
+    template<typename Container>
+    typename Container::value_type sum(const Container& cont) {
+    typename Container::value_type total = 0;
+
+    for (const auto& e : cont) {
+        total += e;
+    }
+
+    return total;
+}
+```
+
+##### Compile-Time if
+
+```
+template<typename T>
+void update(T& target) {
+    if constexpr(is_pod<T>::value)
+        simple_and_fast(target)
+    else
+        slow_and_safe(target)
+}
+```
+
+##### General
+
+- No separate compilation of templates
+- Inclusion of template definitions in every translation unit are necessary
+
+
+## Chapter 7 - Concepts and Generic Programming
+
+###
+
+- Templates used for generic programming
+
+### Concepts (C++ 20)
+
+### 7.3 Generic Programming
+
+- First write concrete version
+- Debug/Test/Measure
+- Replace concrete types with template arguments
+
+### 7.4 Variadic Templates
+
+```
+template<typename T, typename... Tail>
+void print(T head, Tail... tail) {
+    cout << head << '';
+    print(tail...);
+}
+```
+
+#### Fold Expression
+
+```
+template<typename... T>
+int sum(T... v) {
+    return (v + ... + 0);
+}
+```
+
+## Chapter 8 - Library Overview
+
+Table of headers
+
+| Header                          | Content                         |
+|---------------------------------|---------------------------------|
+| <algorithm>                     |                                 |
+| <array>                         |                                 |
+| <chrono>                        |                                 |
+| <cmath>                         |                                 |
+
+- regular expressions
+- I/O streams
+- Concurrency
+
+- standard library defined in namespace **std**
+- header prefixed by **c**: header from C standard library
+
+
+## Chapter 9 - Strings and Regular Expressions
+
+- standard string has move constructor
+    - **return by value is efficient**
+
+- .c_str() -> get C-style string representation
+
+- general template: basic_string
+    - handle different character sets
+
+- string_view: (pointer, length) pair
+    - read-only view
+
+<regext>: regular expressions
+    - R"...": raw strings
+
+    regex_search(...)
+    
+
+## Chapter 10 - Input/Output
+
+- ostream/istream
+    - destructors
+        --> free all resources
+
+
+istream: whitespace terminates read
+
+
+### I/O state
+
+- output for user-defined types
+
+ostream& operator<<(ostream& os, const Entry& e)

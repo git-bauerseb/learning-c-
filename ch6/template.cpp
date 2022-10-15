@@ -2,6 +2,7 @@
 #include <string>
 #include <stdexcept>
 #include <typeinfo>
+#include <vector>
 #include "type.h"
 
 template<typename T>
@@ -60,6 +61,17 @@ struct Buffer {
     constexpr int size() {return N;}
 };
 
+template<typename Container>
+typename Container::value_type sum(const Container& cont) {
+    typename Container::value_type total = 0;
+
+    for (const auto& e : cont) {
+        total += e;
+    }
+
+    return total;
+}
+
 
 int main() {
 
@@ -84,6 +96,10 @@ int main() {
     // Deduction type
     // Vector v1 {1,2,3,4,5};
     // Vector v2{v1.begin(), v1.begin() + 2};
+
+    std::vector<int> some_numbers{1,2,3,4,5,6,7,8,9};
+    int s = sum(some_numbers);
+    std::cout << s << "\n";
 
     return 0;
 }
